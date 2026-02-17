@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="marks-page">
+    <h2>Student Marks Management</h2>
+
+    <!-- SECTION 1: ADD MARKS FORM -->
+    <div class="card">
+        <h3>Record New Marks</h3>
+        <form method="POST" action="/marks">
+            <div class="form-group">
+                <label>Select Student:</label>
+                <select name="student_id" required>
+                    <option value="" disabled selected>-- Choose Student --</option>
+                    {% for s in students %}
+                    <option value="{{ s.id }}">{{ s.name }} (Roll: {{ s.roll_no }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Subject:</label>
+                <input type="text" name="subject" placeholder="e.g. Mathematics" required>
+            </div>
+
+            <div class="form-group">
+                <label>Score (0-100):</label>
+                <input type="number" name="score" min="0" max="100" placeholder="85" required>
+            </div>
+
+            <button type="submit" class="btn">Save Performance Record</button>
+        </form>
+    </div>
+
+    <!-- SECTION 2: VIEW MARKS TABLE -->
+    <div class="card" style="margin-top: 20px;">
+        <h3>Performance Records</h3>
+        {% if marks_list %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Subject</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in marks_list %}
+                <tr>
+                    <td>{{ m.name }}</td>
+                    <td>{{ m.subject }}</td>
+                    <td><strong>{{ m.score }}</strong></td>
+                    <td>
+                        {% if m.score >= 40 %}
+                        <span style="color: green;">Pass</span>
+                        {% else %}
+                        <span style="color: red;">Fail</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No marks recorded yet.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

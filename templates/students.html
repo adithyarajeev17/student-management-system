@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card">
+    <h3>Add New Student</h3>
+    <form method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="text" name="roll" placeholder="Roll Number" required>
+        <input type="text" name="class" placeholder="Class (e.g. 10A)" required>
+        <button type="submit" class="btn">Add Student</button>
+    </form>
+</div>
+<div class="card">
+    <h3>Student List</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Roll No</th>
+            <th>Class</th>
+        </tr>
+        {% for s in students %}
+        <tr>
+            <td>{{s.id}}</td>
+            <td>{{s.name}}</td>
+            <td>{{s.roll_no}}</td>
+            <td>{{s.class_name}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

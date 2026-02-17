@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="card">
+    <h3>Daily Attendance</h3>
+    <form method="POST">
+        <input type="date" name="date" required value="{{ today }}">
+        <table>
+            <tr>
+                <th>Student</th>
+                <th>Status</th>
+            </tr>
+            {% for s in students %}
+            <tr>
+                <td>{{s.name}}</td>
+                <td>
+                    <select name="status_{{s.id}}">
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit" class="btn" style="margin-top: 15px;">Submit Attendance</button>
+    </form>
+</div>
+{% endblock %}

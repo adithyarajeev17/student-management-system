@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2>Attendance History</h2>
+        <a href="/attendance" class="btn" style="text-decoration: none; font-size: 0.8rem;">+ Mark New Attendance</a>
+    </div>
+
+    {% if records %}
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Student Name</th>
+                <th>Roll No</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in records %}
+            <tr>
+                <td>{{ row.date }}</td>
+                <td>{{ row.name }}</td>
+                <td>{{ row.roll_no }}</td>
+                <td>
+                    {% if row.status == 'Present' %}
+                    <span style="color: #22c55e; font-weight: bold;">● Present</span>
+                    {% else %}
+                    <span style="color: #ef4444; font-weight: bold;">○ Absent</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="text-align: center; color: #666; padding: 20px;">No attendance records found.</p>
+    {% endif %}
+</div>
+
+<style>
+    tr:nth-child(even) {
+        background-color: #f9fafb;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        background: #fff;
+        z-index: 1;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Overview</h2>
+
+<!-- Summary Card -->
+<div class="card" style="display: flex; gap: 20px; align-items: center;">
+    <div>
+        <h1 style="margin: 0; color: var(--primary);">{{ total }}</h1>
+        <p style="margin: 0; color: #666;">Total Students Enrolled</p>
+    </div>
+</div>
+
+<!-- Chart Card -->
+<div class="card">
+    <h3>Average Student Performance</h3>
+    <div style="height: 300px;">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<script>
+    // Ensure Chart.js has the data from Flask correctly
+    const labels = {{ labels| tojson }};
+    const dataValues = {{ data| tojson }};
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Avg Score (%)',
+                data: dataValues,
+                backgroundColor: '#2563eb',
+                borderRadius: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    title: {
+                        display: true,
+                        text: 'Score Percentage'
+                    }
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
