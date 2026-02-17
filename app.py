@@ -159,5 +159,5 @@ def attendance_report():
     return render_template('attendance_report.html', records=records)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
