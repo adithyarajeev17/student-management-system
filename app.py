@@ -8,9 +8,9 @@ app.secret_key = 'senior_dev_key'
 # Database path
 DB_PATH = 'database.db'
 
-
+# Function to get a database connection
 def get_db():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH)  
     conn.row_factory = sqlite3.Row
     return conn
 
